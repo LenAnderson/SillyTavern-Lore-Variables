@@ -1,0 +1,85 @@
+#lvm--root {
+  display: flex;
+  width: calc((100vw - var(--sheldWidth) - 2px) / 2);
+  width: calc((100svw - var(--sheldWidth) - 2px) / 2);
+  max-height: calc(100vh - var(--topBarBlockSize));
+  max-height: calc(100svh - var(--topBarBlockSize));
+  min-height: 0;
+  position: fixed;
+  top: 0;
+  margin: 0;
+  right: 0;
+  left: calc(100% - var(--sheldWidth) / 2 + var(--sheldWidth) 1px);
+  padding: 5px;
+  margin-bottom: 5px;
+  backdrop-filter: blur(calc(var(--SmartThemeBlurStrength)));
+  background-color: var(--SmartThemeBlurTintColor);
+  -webkit-backdrop-filter: blur(calc(var(--SmartThemeBlurStrength)));
+  z-index: 3000;
+  border: 1px solid var(--SmartThemeBorderColor);
+  box-shadow: none;
+  border-radius: 10px;
+  overflow: hidden;
+  scrollbar-width: thin;
+  flex-flow: column;
+  min-width: 100px;
+}
+#lvm--root > .lvm--tabs {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+#lvm--root > .lvm--tabs > .lvm--tab {
+  cursor: pointer;
+  padding: 0.5em;
+  border: 1px solid var(--SmartThemeBodyColor);
+  opacity: 0.3;
+  transition: 0.275;
+}
+#lvm--root > .lvm--tabs > .lvm--tab:hover {
+  opacity: 1;
+}
+#lvm--root > .lvm--tabContent {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry {
+  border-bottom: 1px solid silver;
+  margin: 1em 0.5em;
+  padding-bottom: 0.5em;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry.lvm--disabled {
+  opacity: 0.125;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry.lvm--collapsed > .lvm--vars {
+  display: none;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry > .lvm--title {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry > .lvm--title > .lvm--world {
+  flex: 1 1 auto;
+  font-size: small;
+  font-weight: normal;
+  font-style: italic;
+  margin-left: 1em;
+  opacity: 0.5;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry > .lvm--vars {
+  display: grid;
+  grid-template-columns: 1fr 100fr;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry > .lvm--vars > .lvm--input {
+  display: contents;
+}
+#lvm--root > .lvm--tabContent > .lvm--entry > .lvm--vars > .lvm--input > input {
+  background-color: var(--black30a);
+  border: 1px solid var(--SmartThemeBorderColor);
+  border-radius: 5px;
+  padding: 2px;
+  flex: 1;
+  text-align: center;
+}
