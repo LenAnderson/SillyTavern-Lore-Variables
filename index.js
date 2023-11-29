@@ -33,6 +33,12 @@ $(document).ready(function () {
 			manager.unrender();
 			manager.isShown = false;
 		}
+		if (settings.collapsedTextareaHeight === undefined) {
+			settings.collapsedTextareaHeight = 50;
+		}
+		if (settings.expandedTextareaHeight === undefined) {
+			settings.expandedTextareaHeight = -1;
+		}
 	};
 	const addSettings = () => {
 		const html = `
@@ -47,6 +53,24 @@ $(document).ready(function () {
 						<label>
 							<small>Display Variable Panel</small><br>
 							<input type="checkbox" id="lvm--displayPanel" ${settings.displayPanel ? 'checked' : ''}>
+						</label>
+					</div>
+					<div class="flex-container">
+						<label>
+							<small>Collapse Textareas</small><br>
+							<input type="checkbox" id="lvm--collapseTextareas" ${settings.collapseTextareas ? 'checked' : ''}>
+						</label>
+					</div>
+					<div class="flex-container">
+						<label>
+							<small>Collapsed Textarea Height (px)</small><br>
+							<input type="number" class="text_pole" min="0" id="lvm--collapsedTextareaHeight" value="${settings.collapsedTextareaHeight}">
+						</label>
+					</div>
+					<div class="flex-container">
+						<label>
+							<small>Expanded Textarea Height (px, adjust to content = -1)</small><br>
+							<input type="number" class="text_pole" min="0" id="lvm--expandedTextareaHeight" value="${settings.expandedTextareaHeight}">
 						</label>
 					</div>
 				</div>
@@ -64,6 +88,18 @@ $(document).ready(function () {
 				manager.unrender();
 				manager.isShown = false;
 			}
+		});
+		$('#lvm--collapseTextareas').on('click', ()=>{
+			settings.collapseTextareas = document.getElementById('lvm--collapseTextareas').checked;
+			saveSettings();
+		});
+		$('#lvm--collapsedTextareaHeight').on('change', ()=>{
+			settings.collapsedTextareaHeight = Number(document.getElementById('lvm--collapsedTextareaHeight').value);
+			saveSettings();
+		});
+		$('#lvm--expandedTextareaHeight').on('change', ()=>{
+			settings.expandedTextareaHeight = Number(document.getElementById('lvm--expandedTextareaHeight').value);
+			saveSettings();
 		});
 	};
 

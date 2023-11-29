@@ -1,3 +1,5 @@
+import { extension_settings } from "../../../../extensions.js";
+
 export class LoreVar {
 	/**@type {String}*/ name;
 	/**@type {String}*/ type = 's';
@@ -79,15 +81,31 @@ export class LoreVar {
 						inp.value = this.value || '';
 						if (this.state.height) {
 							inp.style.height = this.state.height;
+						} else if (extension_settings.LORE_VARIABLES.collapseTextareas && extension_settings.LORE_VARIABLES.collapsedTextareaHeight) {
+							inp.style.height = `${extension_settings.LORE_VARIABLES.collapsedTextareaHeight}px`;
 						}
 						const autoSize = ()=>{
-							inp.style.height = '5px';
-							inp.style.height = `${inp.scrollHeight + 10}px`;
-							this.state.height = inp.style.height;
+							if (extension_settings.LORE_VARIABLES.expandedTextareaHeight == -1) {
+								inp.style.height = '5px';
+								inp.style.height = `${inp.scrollHeight + 10}px`;
+								this.state.height = inp.style.height;
+							} else {
+								inp.style.height = `${extension_settings.LORE_VARIABLES.expandedTextareaHeight}px`;
+								this.state.height = inp.style.height;
+							}
+						};
+						const collapse = ()=>{
+							if (extension_settings.LORE_VARIABLES.collapseTextareas) {
+								inp.style.height = `${extension_settings.LORE_VARIABLES.collapsedTextareaHeight}px`;
+								this.state.height = inp.style.height;
+							}
 						};
 						inp.addEventListener('input', autoSize);
 						inp.addEventListener('focus', ()=>{
 							autoSize();
+						});
+						inp.addEventListener('blur', ()=>{
+							collapse();
 						});
 						
 						inp.addEventListener('change', ()=>{
